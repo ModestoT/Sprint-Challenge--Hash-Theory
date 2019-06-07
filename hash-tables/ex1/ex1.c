@@ -19,21 +19,15 @@ Answer *get_indices_of_item_weights(int *weights, int length, int limit)
     if ( index !=-1 ){ 
       index1 = index;
       // index2 = index;
-      printf("weight: %d, id: %d, hashtable: %d\n", weights[i], i, hash_table_retrieve(ht, limit-weights[i])); 
+      printf("weight: %d, id: %d, hashtable: %d\n", weights[i], i, index); 
       weight = weights[i];
       // answer->index_1 = i;
       // answer->index_2 = index;
       // return answer;
     }
-    // index1 = hash_table_retrieve(ht, weights[i]);
-    // index2 = hash_table_retrieve(ht, limit-weights[i]);
-    // if ( index2 != -1){
-    //   answer->index_1 = index1;
-    //   answer->index_2 = index2;
-    // }
   }
-  printf("outside for loop index1: %d index2: %d\n", index1, hash_table_retrieve(ht, limit-weight));
   index2 = hash_table_retrieve(ht, weight);
+  printf("outside for loop index1: %d index2: %d\n", index1, index2);
   // printf("found index1: %d , index2: %d, weight: %d\n", index1, index2, weight);
 
   if (index1 == -1 || index2 == -1){
