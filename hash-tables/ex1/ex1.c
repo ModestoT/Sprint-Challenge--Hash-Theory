@@ -15,19 +15,26 @@ Answer *get_indices_of_item_weights(int *weights, int length, int limit)
   // loop through the weights and add them to the hash table
   for (int i = 0; i < length; i++){
     hash_table_insert(ht, weights[i], i);
-    if (hash_table_retrieve(ht, limit-weights[i]) != -1){  
-      index1 = hash_table_retrieve(ht, limit-weights[i]);
+    int index = hash_table_retrieve(ht, limit-weights[i]);
+    if ( index !=-1 ){ 
+      index1 = index;
+      // index2 = index;
+      printf("weight: %d, id: %d, hashtable: %d\n", weights[i], i, hash_table_retrieve(ht, limit-weights[i])); 
       weight = weights[i];
+      // answer->index_1 = i;
+      // answer->index_2 = index;
+      // return answer;
     }
-    //index1 = hash_table_retrieve(ht, weights[i]);
+    // index1 = hash_table_retrieve(ht, weights[i]);
     // index2 = hash_table_retrieve(ht, limit-weights[i]);
     // if ( index2 != -1){
     //   answer->index_1 = index1;
     //   answer->index_2 = index2;
     // }
   }
+  printf("outside for loop index1: %d index2: %d\n", index1, hash_table_retrieve(ht, limit-weight));
   index2 = hash_table_retrieve(ht, weight);
-  printf("found index1: %d , index2: %d, weight: %d\n", index1, index2, weight);
+  // printf("found index1: %d , index2: %d, weight: %d\n", index1, index2, weight);
 
   if (index1 == -1 || index2 == -1){
     return NULL;
@@ -35,14 +42,14 @@ Answer *get_indices_of_item_weights(int *weights, int length, int limit)
   if (index1 < index2){
     answer->index_1 = index2;
     answer->index_2 = index1;
+    destroy_hash_table(ht);
     return answer;
   } else {
     answer->index_1 = index1;
+    destroy_hash_table(ht);
+    // answer->index_2 = index2;
     return answer;
   }
-  
-
-  
   
   return NULL;
 }
