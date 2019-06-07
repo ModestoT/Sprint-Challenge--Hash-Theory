@@ -8,7 +8,43 @@ Answer *get_indices_of_item_weights(int *weights, int length, int limit)
   HashTable *ht = create_hash_table(16);
 
   /* YOUR CODE HERE */
+  int index1;
+  int index2;
+  int weight;
+  Answer *answer = malloc(sizeof(Answer));
+  // loop through the weights and add them to the hash table
+  for (int i = 0; i < length; i++){
+    hash_table_insert(ht, weights[i], i);
+    int index = hash_table_retrieve(ht, limit-weights[i]);
+    if ( index !=-1 ){ 
+      index1 = index;
+      // index2 = index;
+      printf("weight: %d, id: %d, hashtable: %d\n", weights[i], i, index); 
+      weight = weights[i];
+      // answer->index_1 = i;
+      // answer->index_2 = index;
+      // return answer;
+    }
+  }
+  index2 = hash_table_retrieve(ht, weight);
+  printf("outside for loop index1: %d index2: %d\n", index1, index2);
+  // printf("found index1: %d , index2: %d, weight: %d\n", index1, index2, weight);
 
+  if (index1 == -1 || index2 == -1){
+    return NULL;
+  }
+  if (index1 < index2){
+    answer->index_1 = index2;
+    answer->index_2 = index1;
+    destroy_hash_table(ht);
+    return answer;
+  } else {
+    answer->index_1 = index1;
+    destroy_hash_table(ht);
+    // answer->index_2 = index2;
+    return answer;
+  }
+  
   return NULL;
 }
 
@@ -28,22 +64,22 @@ int main(void)
   int weights_1 = {9};
   Answer *answer_1 = get_indices_of_item_weights(&weights_1, 1, 9);
   print_answer(answer_1);  // NULL
-
+  free(answer_1);
   // TEST 2
   int weights_2[] = {4, 4};
   Answer* answer_2 = get_indices_of_item_weights(weights_2, 2, 8);
   print_answer(answer_2);  // {1, 0}
-
+  free(answer_2);
   // TEST 3
   int weights_3[] = {4, 6, 10, 15, 16};
   Answer* answer_3 = get_indices_of_item_weights(weights_3, 5, 21);
   print_answer(answer_3);  // {3, 1}
-
+  free(answer_3);
   // TEST 4
   int weights_4[] = {12, 6, 7, 14, 19, 3, 0, 25, 40};
   Answer* answer_4 = get_indices_of_item_weights(weights_4, 9, 7);
   print_answer(answer_4);  // {6, 2}
-
+  free(answer_4);
   return 0;
 }
 
