@@ -8,7 +8,42 @@ Answer *get_indices_of_item_weights(int *weights, int length, int limit)
   HashTable *ht = create_hash_table(16);
 
   /* YOUR CODE HERE */
+  int index1;
+  int index2;
+  int weight;
+  Answer *answer = malloc(sizeof(Answer));
+  // loop through the weights and add them to the hash table
+  for (int i = 0; i < length; i++){
+    hash_table_insert(ht, weights[i], i);
+    if (hash_table_retrieve(ht, limit-weights[i]) != -1){  
+      index1 = hash_table_retrieve(ht, limit-weights[i]);
+      weight = weights[i];
+    }
+    //index1 = hash_table_retrieve(ht, weights[i]);
+    // index2 = hash_table_retrieve(ht, limit-weights[i]);
+    // if ( index2 != -1){
+    //   answer->index_1 = index1;
+    //   answer->index_2 = index2;
+    // }
+  }
+  index2 = hash_table_retrieve(ht, weight);
+  printf("found index1: %d , index2: %d, weight: %d\n", index1, index2, weight);
 
+  if (index1 == -1 || index2 == -1){
+    return NULL;
+  }
+  if (index1 < index2){
+    answer->index_1 = index2;
+    answer->index_2 = index1;
+    return answer;
+  } else {
+    answer->index_1 = index1;
+    return answer;
+  }
+  
+
+  
+  
   return NULL;
 }
 
